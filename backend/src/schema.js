@@ -9,7 +9,6 @@ import { v4 as uuidv4 } from "uuid";
 import dayjs from "dayjs";
 
 const schema = buildSchema({
-  // Auth
   register: {
     type: "JSON",
     args: { username: "String!", password: "String!" },

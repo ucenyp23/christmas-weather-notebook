@@ -1,26 +1,33 @@
 import Fastify from "fastify";
-import cookie from "fastify-cookie";
-import rateLimit from "fastify-rate-limit";
-import schema from "./schema.js";
-import db from "./db.js";
+import cookie from "@fastify/cookie";
+import rateLimit from "@fastify/rate-limit";
 import dotenv from "dotenv";
 dotenv.config();
-const PORT = process.env.PORT || 4000;
+import schema from "./schema.js";
+import { buildTypeDefsAndResolvers } from "./schema-adapter.js";
+import { ApolloServer } from "@apollo/server";
+import { fastifyPlugin } from "@as-integrations/fastify";
 
+const PORT = process.env.PORT || 4000;
 const app = Fastify({ logger: true });
 
-app.register(cookie);
+await app.register(cookie);
 
-app.register(rateLimit, {
+await app.register(rateLimit, {
   max: Number(process.env.RATE_LIMIT_MAX) || 100,
   timeWindow: Number(process.env.RATE_LIMIT_TIME) || 15 * 60 * 1000
 });
 
-import { graphqlHandler } from "graphene-api"; // adjust import if needed
-app.register(graphqlHandler, {
+const { typeDefs, resolvers } = buildTypeDefsAndResolvers(schema);
+
+const apollo = new ApolloServer({ typeDefs, resolvers });
+await apollo.start();
+
+await app.register(fastifyPlugin(apollo), {
   path: "/graphql",
-  schema,
-  context: (req) => ({ cookies: req.cookies, req })
+  context: async (request) => {
+    return { req: { cookies: request.cookies, req: request } };
+  }
 });
 
 app.addHook("onRequest", async (req, reply) => {
