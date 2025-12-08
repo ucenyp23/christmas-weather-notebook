@@ -1,0 +1,28 @@
+{
+  "name": "weather-notes-backend",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "NODE_ENV=development node src/server.js",
+    "test": "NODE_ENV=test mocha --exit"
+  },
+  "dependencies": {
+    "fastify": "^4.22.0",
+    "fastify-cookie": "^7.0.1",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "simple-json-db": "^3.0.1",
+    "graphene-api": "^1.0.0",
+    "joi": "^17.9.2",
+    "fastify-rate-limit": "^7.0.0",
+    "node-fetch": "^3.3.2",
+    "dayjs": "^1.11.8",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0",
+    "chai": "^4.3.7"
+  }
+}
