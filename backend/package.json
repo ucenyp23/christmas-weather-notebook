@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "fastify": "^4.22.0",
-    "fastify-cookie": "^7.0.1",
+    "@fastify/cookie": "^11.0.2",
     "bcrypt": "^5.1.0",
     "jsonwebtoken": "^9.0.0",
     "simple-json-db": "^3.0.1",
