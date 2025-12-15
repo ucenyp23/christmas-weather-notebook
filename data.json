@@ -1,0 +1,9 @@
+{
+    "Admin": {
+        "username": "Admin",
+        "passwordHash": "$2b$10$mMW1a8CAwJKPe20D9nwNoeFF6ZkeA6kUW9mwsRkDIht57iXcvdBbW",
+        "points": 0,
+        "notes": [],
+        "lastNoteDay": null
+    }
+}
