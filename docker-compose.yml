@@ -5,6 +5,9 @@ services:
       dockerfile: server/Dockerfile
     image: myapp-server:latest
     working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app:delegated
+      - /usr/src/app/node_modules
     ports:
       - "4000:4000"
     environment:
@@ -16,9 +19,12 @@ services:
       context: .
       dockerfile: client/Dockerfile
     image: myapp-client:latest
-    working_dir: /usr/src/app
+    working_dir: /usr/src/app/client
+    volumes:
+      - ./client:/usr/src/app/client:delegated
+      - /usr/src/app/client/node_modules
     ports:
-      - "3000:3000"
+      - "5174:5174"
     environment:
       NODE_ENV: development
     depends_on:

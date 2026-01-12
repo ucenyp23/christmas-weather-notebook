@@ -10,5 +10,5 @@ const server = new ApolloServer({
   }
 });
 
-server.listen({ port: 4000 })
+server.listen({ port: 4000, host: "0.0.0.0" })
   .then(() => console.log("🚀 GraphQL http://localhost:4000"));
