@@ -1,0 +1,28 @@
+services:
+  server:
+    image: node:18-alpine
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app:cached
+      - /usr/src/app/node_modules
+    command: sh -c "npm ci --only=production && npm run server"
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
+
+  client:
+    image: node:18-alpine
+    working_dir: /usr/src/app/client
+    volumes:
+      - ./client:/usr/src/app/client:cached
+      - /usr/src/app/client/node_modules
+    command: sh -c "cd /usr/src/app/client && npm ci && npm run dev"
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - server
+    restart: unless-stopped
