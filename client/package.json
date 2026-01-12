@@ -2,7 +2,7 @@
   "name": "weather-notes-client",
   "private": true,
   "scripts": {
-    "dev": "vite --port 5174"
+    "dev": "vite --host --port 5174"
   },
   "dependencies": {
     "solid-js": "^1.8.0"
