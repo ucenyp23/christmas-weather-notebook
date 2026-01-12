@@ -1,11 +1,10 @@
 services:
   server:
-    image: node:18-alpine
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: myapp-server:latest
     working_dir: /usr/src/app
-    volumes:
-      - ./:/usr/src/app:cached
-      - /usr/src/app/node_modules
-    command: sh -c "npm ci --only=production && npm run server"
     ports:
       - "4000:4000"
     environment:
@@ -13,12 +12,11 @@ services:
     restart: unless-stopped
 
   client:
-    image: node:18-alpine
-    working_dir: /usr/src/app/client
-    volumes:
-      - ./client:/usr/src/app/client:cached
-      - /usr/src/app/client/node_modules
-    command: sh -c "cd /usr/src/app/client && npm ci && npm run dev"
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    image: myapp-client:latest
+    working_dir: /usr/src/app
     ports:
       - "3000:3000"
     environment:
