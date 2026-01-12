@@ -2,7 +2,7 @@
   "name": "weather-notes-client",
   "private": true,
   "scripts": {
-    "dev": "vite"
+    "dev": "vite --port 3000"
   },
   "dependencies": {
     "solid-js": "^1.8.0"
